@@ -27,8 +27,13 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew assembleAfatRelease
 
+    - name: Find and Rename APK
+      run: |
+        mkdir -p final_apk
+        find . -name "*.apk" -exec cp {} final_apk/MyTelegram.apk \;
+
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: telegram-apk
-        path: '**/*.apk'
+        name: MyTelegram-APK
+        path: final_apk/MyTelegram.apk
