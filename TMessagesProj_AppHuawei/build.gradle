@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.huawei.agconnect'
+// apply plugin: 'com.huawei.agconnect'
 apply plugin: 'org.telegram.build-app-plugin'
 
 repositories {
@@ -172,3 +172,8 @@ android {
 }
 
 // apply plugin: 'com.google.gms.google-services'
+project.tasks.whenTaskAdded { task ->
+    if (task.name.contains('AGConnect') || task.name.contains('AGC')) {
+        task.enabled = false
+    }
+}
