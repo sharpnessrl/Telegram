@@ -278,3 +278,8 @@ task checkVisibility {
 }
 
 preBuild.dependsOn checkVisibility
+project.tasks.whenTaskAdded { task ->
+    if (task.name.contains('GoogleServices')) {
+        task.enabled = false
+    }
+}
