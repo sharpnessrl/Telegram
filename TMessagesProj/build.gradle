@@ -241,7 +241,7 @@ android {
         }
     }
 
-    namespace 'com.sharpness.prism'
+    namespace 'org.telegram.messenger'
 }
 
 
