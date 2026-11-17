@@ -893,7 +893,8 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     }
                 });
                 animatorSet.start();
-            }, 400);
+            }
+        }, 400);
         }, 100);
         // ---------------------------------------------------------
         // --- Принудительное включение темы Prism по умолчанию ---
