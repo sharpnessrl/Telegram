@@ -116,7 +116,6 @@ public class UserConfig extends BaseController {
 public static boolean hasPremiumOnAccounts() {
     return true; // Жестко включаем премиум для всех аккаунтов в Prism Client
 }
-    }
 
     public static int getMaxAccountCount() {
         return hasPremiumOnAccounts() ? 5 : 3;
