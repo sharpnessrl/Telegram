@@ -895,7 +895,6 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                 animatorSet.start();
             }
         }, 400);
-        }, 100);
         // ---------------------------------------------------------
         // --- Принудительное включение темы Prism по умолчанию ---
         android.content.SharedPreferences prismPrefs = org.telegram.messenger.ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", android.content.Context.MODE_PRIVATE);
@@ -9439,12 +9438,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
     public static void dismissAllWeb() {
         BaseFragment lastFragment = getSafeLastFragment();
         if (lastFragment == null) return;
-
-        BaseFragment sheetFragment =
-            lastFragment.getParentLayout() instanceof ActionBarLayout ?
-                ((ActionBarLayout) lastFragment.getParentLayout()).getSheetFragment(false) :
-                null;
-
+        BaseFragment sheetFragment = lastFragment.getParentLayout() instanceof ActionBarLayout ? ((ActionBarLayout) lastFragment.getParentLayout()).getSheetFragment(false) : null;
         if (sheetFragment != null && sheetFragment.sheetsStack != null) {
             for (int i = sheetFragment.sheetsStack.size() - 1; i >= 0; --i) {
                 BaseFragment.AttachedSheet sheet = sheetFragment.sheetsStack.get(i);
