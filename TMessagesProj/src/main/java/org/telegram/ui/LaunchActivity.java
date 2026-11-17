@@ -855,6 +855,56 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
         //    refreshRateController = new RefreshRateController(this);
         //}
         checkFrameMetrics();
+              // --- Анимация входа Prism Client (разблокировка вверх) ---
+        final FrameLayout splashOverlay = new FrameLayout(this);
+        splashOverlay.setBackgroundColor(0xFF0F1016); 
+        splashOverlay.setElevation(100f); 
+
+        ImageView splashLogo = new ImageView(this);
+        splashLogo.setImageResource(R.mipmap.ic_launcher); 
+        FrameLayout.LayoutParams logoParams = new FrameLayout.LayoutParams(
+            AndroidUtilities.dp(96), 
+            AndroidUtilities.dp(96)
+        );
+        logoParams.gravity = android.view.Gravity.CENTER;
+        splashLogo.setLayoutParams(logoParams);
+        splashOverlay.addView(splashLogo);
+
+        ViewGroup rootView = (ViewGroup) getWindow().getDecorView().getRootView();
+        rootView.addView(splashOverlay, new ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT, 
+            ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+
+        splashLogo.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                android.animation.AnimatorSet animatorSet = new android.animation.AnimatorSet();
+                animatorSet.playTogether(
+                    android.animation.ObjectAnimator.ofFloat(splashOverlay, "translationY", 0f, -rootView.getHeight()),
+                    android.animation.ObjectAnimator.ofFloat(splashOverlay, "alpha", 1f, 0f)
+                );
+                animatorSet.setDuration(600);
+                animatorSet.setInterpolator(new android.view.animation.AccelerateDecelerateInterpolator());
+                animatorSet.addListener(new android.animation.AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(android.animation.Animator animation) {
+                        rootView.removeView(splashOverlay);
+                    }
+                });
+                animatorSet.start();
+            }, 400);
+        }, 100);
+        // ---------------------------------------------------------
+        // --- Принудительное включение темы Prism по умолчанию ---
+        android.content.SharedPreferences prismPrefs = org.telegram.messenger.ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", android.content.Context.MODE_PRIVATE);
+        if (!prismPrefs.getBoolean("prism_default_applied", false)) {
+            prismPrefs.edit()
+                .putBoolean("night_theme", true) // Включаем ночной режим
+                .putString("themePath", "prism_default") // Метка для нашей темы
+                .putBoolean("prism_default_applied", true)
+                .apply();
+        }
     }
 
     public void checkFrameMetrics() {

@@ -142,7 +142,12 @@ import java.util.stream.Collectors;
 import me.vkryl.core.BitwiseUtils;
 
 public class MessagesController extends BaseController implements NotificationCenter.NotificationCenterDelegate {
-
+        // --- Снятие лимита закрепленных чатов для Prism Client ---
+    public int getDialogsPinnedLimit(boolean isPremium) {
+        return 9999; // Устанавливаем лимит в 9999 чатов локально
+    }
+    // --------------------------------------------------------
+    
     public int lastKnownSessionsCount;
     private final ConcurrentHashMap<Long, TLRPC.Chat> chats = new ConcurrentHashMap<>(100, 1.0f, 2);
     private final ConcurrentHashMap<Integer, TLRPC.EncryptedChat> encryptedChats = new ConcurrentHashMap<>(10, 1.0f, 2);

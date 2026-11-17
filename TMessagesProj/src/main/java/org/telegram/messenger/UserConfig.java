@@ -113,13 +113,9 @@ public class UserConfig extends BaseController {
         super(instance);
     }
 
-    public static boolean hasPremiumOnAccounts() {
-        for (int a = 0; a < MAX_ACCOUNT_COUNT; a++) {
-            if (AccountInstance.getInstance(a).getUserConfig().isClientActivated() && AccountInstance.getInstance(a).getUserConfig().getUserConfig().isPremium()) {
-                return true;
-            }
-        }
-        return false;
+public static boolean hasPremiumOnAccounts() {
+    return true; // Жестко включаем премиум для всех аккаунтов в Prism Client
+}
     }
 
     public static int getMaxAccountCount() {
